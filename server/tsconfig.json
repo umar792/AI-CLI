@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ES2024",
+    "module": "nodenext",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "nodenext",
+    "strict": true,
+    "skipLibCheck": true,
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "typeRoots": [ "./node_module/@types",
+    "./src/types"]
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules" , "dist"
+  ]
+}
