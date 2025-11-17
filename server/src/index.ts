@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import morgan from "morgan";
 import express from "express";
 import { error } from "./middleware/error.js";
+import { connectQDB } from "./lib/db.js";
 
 
 
@@ -14,6 +15,11 @@ app.use(express.json());
 morgan(':method :url :status :res[content-length] - :response-time ms')
 
 const server = app.listen(process.env.PORT || 5000 , ()=>{
+    connectQDB().then(()=>{
+        console.log("Database connected successfully");
+    }).catch((error:any)=>{
+        console.log(`Database connection error due to ${error?.message}`);
+    })
     console.log(`Server is running on port ${process.env.PORT || 5000}`)
 })
 
