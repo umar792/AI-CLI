@@ -4,15 +4,21 @@ import morgan from "morgan";
 import express from "express";
 import { error } from "./middleware/error.js";
 import { connectQDB } from "./lib/db.js";
+import { toNodeHandler } from "better-auth/node";
+import { auth } from "./lib/auth.js";
 
 
 
 // dotenv 
 dotenv.config();
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin : "http://localhost:3000",
+    credentials : true,
+}));
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms'))
+app.all("/api/auth/*splat", toNodeHandler(auth));
 app.use(express.json());
-morgan(':method :url :status :res[content-length] - :response-time ms')
 
 const server = app.listen(process.env.PORT || 5000 , ()=>{
     connectQDB().then(()=>{
